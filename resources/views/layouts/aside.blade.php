@@ -7,7 +7,7 @@
         <div
           class="flex items-center justify-between px-6 py-8 border-b border-gray-500"
         >
-        <a class="text-blue-500 text-2xl font-bold uppercase text-center"> Sistem Informasi SIARDIKU</a>
+        <a class="text-white text-3xl font-bold uppercase text-center"> SIARDIKU</a>
           <button
             x-show="isMobile"
             @click="sidenavOpen = false"
@@ -65,6 +65,14 @@
                
               </li>
               <li>
+                <x-nav-link :href="route('SP2D')" :dashboard-active="request()->routeIs('SP2D')" >
+                  <i class="fa-sharp fa-solid fa-gear mr-3" aria-current="true"></i>
+                  <span>{{__('Setting')}}</span></a
+                ></x-nav-link>
+               
+              </li>
+              
+              <li>
                 <button class="flex items-center px-4 py-2 rounded-md hover:bg-gray-700">
                   <i class="fa-solid fa-right-from-bracket mr-3" aria-current="true"></i>
                   <span>{{__('Sign out')}}</span></a>
@@ -72,5 +80,9 @@
               </li>
             </ul>
           </div>
+          <button class="flex items-center px-4 py-2 rounded-md hover:bg-gray-700">
+            <i class="fa-solid fa-square-question mr-3" aria-current="true"></i>
+            <span>{{__('Help')}}</span></a>
+          </button>
         </nav>
       </aside>

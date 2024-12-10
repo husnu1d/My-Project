@@ -13,12 +13,13 @@ Route::get('/dashboard', function () {return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/SP2D', function () {return view('SP2D');
 })->middleware(['auth', 'verified'])->name('SP2D');
-Route::get('/Split', function () {return view('documents/index');
-})->middleware(['auth', 'verified'])->name('Split');
+
 Route::get('/MyProfile', function () {return view('MyProfile');
 })->middleware(['auth', 'verified'])->name('MyProfile');
-Route::get('/Settings', function () {return view('Settingse');
-})->middleware(['auth', 'verified'])->name('Settingse');
+
+Route::get('/pengaturan', function () {return view('pengaturan');
+})->middleware(['auth', 'verified'])->name('pengaturan');
+
 
 
 

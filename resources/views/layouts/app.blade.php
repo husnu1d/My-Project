@@ -41,11 +41,11 @@
       @include('layouts.aside')
       <div class="flex w-full h-full overflow-y-auto p-4 bg-gray-100 box-border shadow-lg rounded-lg" >
         <!-- Header -->
-        <div class=" flex-1  min-h-screen flex flex-col h-fit ">
-          <header class="flex flex-1 justify-between mb-6 relative">
-            <nav class="flex-1 h-fit relative fixed px-4">
+        <div class=" flex-1 flex flex-col h-fit ">
+          <header class="flex flex-1  relative">
+            <nav class="flex-1 h-fit px-4">
               <ul
-                class="flex items-center justify-between md:justify-center text-center"
+                class="flex items-center justify-between  text-center"
                 x-data="{openSettings:false}"
               >
                 <li>
@@ -64,7 +64,7 @@
             </nav>
           </header>
 
-          <main class="w-full  flex-1 px-6">
+          <main class="  flex-1 px-6">
             <h1
               class="text-center md:text-left text-4xl font-semibold py-4 md:py-6 text-purple-900"
             >

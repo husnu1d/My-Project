@@ -1,15 +1,12 @@
-@php
-$color = 'blue';
-@endphp
-<li class='hover:scale-105 ease-in-out duration-75 flex items-center p-4  border  rounded-md overflow-hidden shadow {{"bg-". $color . "-50"}}{{"border-". $color . "-500"}} '>
-    <div  class="flex items-center gap-4">
-                    <div class="rounded-full p-4 {{'bg' . $color . '-800'}} ">
+<li class='hover:scale-95 ease-in-out duration-75 flex items-center p-4  border-2  rounded-md overflow-hidden shadow {{"bg-". $color . "-50"}} {{"border-". $color . "-500"}} '>
+    <div  class="flex items-center gap-8">
+                    <div class="p-4 rounded-full  {{'bg-' . $color . '-800 '}} ">
                         <i :class="!isMobile ?'fa-2x':''" class="fa-light fa-messages-question text-white "></i>
                     </div>
-                    <div class="flex flex-col {{'text' . $color . '-800'}} ">
-                        <h3 class="text-xl font-bold ">{{$menutitle}}</h3>
-                        <small class="text-sm font-thin mb-3">{{$menuQty}}</small>
-                        <a href="" class="underline  text-sm font-bold">More Info</a>
+                    <div class="flex py-4 flex-col {{'text-' . $color . '-800'}} ">
+                        <h3 class="text-lg font-bold ">{{ $title }}</h3>
+                        <small class=" font-thin mb-3">{{ $qty }}</small>
+                       {{ $slot }}
                     </div>
-                </div>
+    </div>
 </li>
