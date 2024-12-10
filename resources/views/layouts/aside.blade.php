@@ -23,34 +23,23 @@
               <li>
                 <x-nav-link :href="route('dashboard')" :dashboard-active="request()->routeIs('dashboard')" >
                   <i class="fas fa-home mr-3" aria-hidden="true"></i
-                  ><span>{{__('Dashboard')}}</span></a
-                >
-</x-nav-link>
-
-                
+                  ><span>{{__('Dashboard')}}</span></a>
+                </x-nav-link> 
               </li>
-              <li >
-                <x-nav-link :href="route('SP2D')" :dashboard-active="request()->routeIs('SP2D')" >
-                  <i class="fas fa-file mr-3" aria-hidden="true"></i
-                  ><span>{{__('File SP2D')}}</span></a
-                >
-</x-nav-link>                
-              </li>
-              <li >
+             
+              <li>
                 <x-nav-link :href="route('Split')" :dashboard-active="request()->routeIs('Split')" >
-                  <i class="fas fa-split mr-3" aria-hidden="true"></i
-                  ><span>{{__('Split Dokumen ')}}</span></a
-                >
-</x-nav-link>
-                <!-- <a
-                  href="{{ route('documents') }}"
-                  class="flex items-center px-4 py-2 rounded-md hover:bg-gray-700"
-                >
-                  <i class="fas fa-folder mr-3" aria-hidden="true"></i
-                  ><span>Arsip</span>
-                </a> -->
-                
+                  <i class="fa-sharp fa-solid fa-file mr-3"></i>
+                  <span>{{__('Split Dokument')}}</span></a>
+                </x-nav-link> 
               </li>
+              <li>
+                <x-nav-link :href="route('File')" :dashboard-active="request()->routeIs('File')" >
+                  <i class="fa-sharp fa-solid fa-file mr-3"></i>
+                  <span>{{__('File')}}</span></a>
+                </x-nav-link> 
+              </li>
+             
             </ul>
           </div>
           <div>
@@ -62,14 +51,13 @@
                   <i class="fas fa-user mr-3" aria-hidden="true"></i
                   ><span>{{__('My profile')}}</span></a
                 ></x-nav-link>
-               
               </li>
+             
               <li>
-                <x-nav-link :href="route('SP2D')" :dashboard-active="request()->routeIs('SP2D')" >
-                  <i class="fa-sharp fa-solid fa-gear mr-3" aria-current="true"></i>
-                  <span>{{__('Setting')}}</span></a
-                ></x-nav-link>
-               
+                <x-nav-link :href="route('Settings')" :dashboard-active="request()->routeIs('Settings')" >
+                  <i class="fa-sharp fa-solid fa-gear mr-3"></i>
+                  <span>{{__('Settings')}}</span></a>
+                </x-nav-link> 
               </li>
               
               <li>
