@@ -7,7 +7,7 @@
         <div
           class="flex items-center justify-between px-6 py-8 border-b border-gray-500"
         >
-        <a  class="text-blue-500 text-2xl font-bold uppercase text-center"> Sistem Informasi SIARDIKU</a>
+        <a class="text-blue-500 text-2xl font-bold uppercase text-center"> Sistem Informasi SIARDIKU</a>
           <button
             x-show="isMobile"
             @click="sidenavOpen = false"
@@ -61,8 +61,7 @@
                 <x-nav-link :href="route('MyProfile')" :dashboard-active="request()->routeIs('MyProfile')" >
                   <i class="fas fa-user mr-3" aria-hidden="true"></i
                   ><span>{{__('My profile')}}</span></a
-                >
-</x-nav-link>
+                ></x-nav-link>
                
               </li>
               <li>

@@ -1,4 +1,7 @@
 <x-app-layout>
+   <x-slot >
+                    {{ __('halo') }}
+    </x-slot>
     <section class="mt-10 rounded-lg shadow px-8 py-8 bg-white">
               <div
                 class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-4"

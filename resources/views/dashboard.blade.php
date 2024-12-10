@@ -1,7 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">
-                    {{ __('Dashboard') }}
-    </x-slot>
+    
     <section class=" my-8 h-full overflow-y-scroll">
         <ul class="grid grid-cols-3 gap-8 md:grid-cols-5 auto-rows-[8em]">
             <li class="hover:scale-105 ease-in-out duration-75 flex items-center p-4 bg-blue-50 border border-blue-500 rounded-md overflow-hidden shadow">
