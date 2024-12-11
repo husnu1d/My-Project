@@ -9,7 +9,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-<<<<<<< HEAD
 Route::get('/dashboard', function () {return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/help', function () {return view('documents.help');
@@ -17,16 +16,6 @@ Route::get('/help', function () {return view('documents.help');
 Route::get('/File', function () {return view('documents.File');
 })->middleware(['auth', 'verified'])->name('File');
 Route::get('/Split', function () {return view('documents.index');
-=======
-Route::get('/SP2D', function () {
-    return view('SP2D');
-})->middleware(['auth', 'verified'])->name('SP2D');
-
-Route::get('/Split', function () {
-    return view('documents.index');
->>>>>>> 36af8e67efc88b6173013fcdd09e0581a9171bb5
-})->middleware(['auth', 'verified'])->name('Split');
-
 Route::get('/Convert', function () {
     return view('converts.index');
 })->middleware(['auth', 'verified'])->name('Convert');
