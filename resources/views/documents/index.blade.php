@@ -1,66 +1,13 @@
 <x-app-layout>
     <section class="mt-10 rounded-lg shadow px-8 py-8 bg-white">
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-4">
-            <!-- <form action="{{ route('documents.upload') }}"
-                  enctype="multipart/form-data"
-                  method="post"
-                   
-                >
-                  <label
-                    class="p-2 md:px-4 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-300 flex gap-4 items-center cursor-pointer"
-                  >
-                    <i class="fa-sharp fa-solid fa-plus"></i>
-                    <span>Tambah Berkas</span>
-                    <input
-                      id="fileInput"
-                      type="file"
-                      name="document"
-                      class=""
-                      @change="fileChosen"
-                      accept=".pdf"
-                    />
-                  </label>
-                </form> -->
+      <script src="//unpkg.com/alpinejs" defer></script>
 
-            <form action="{{ route('documents.upload') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="flex">
-                    <input type="file" name="document" @change="fileChosen" id="fileInput" accept=".pdf" id="document"
-                        required class="mt-1 block w-full">
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Upload
-                    </button>
-                </div>
-            </form>
-
-            <!-- Filter Dropdown -->
-            <div id="date-range-picker" date-rangepicker class="flex items-center">
-                <div class="relative">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                        </svg>
-                    </div>
-                    <input id="datepicker-range-start" name="start" type="text"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full ps-10 p-2.5"
-                        placeholder="Select date start" />
-                </div>
-                <span class="mx-4 text-gray-500">to</span>
-                <div class="relative">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                        </svg>
-                    </div>
-                    <input id="datepicker-range-end" name="end" type="text"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full ps-10 p-2.5"
-                        placeholder="Select date end" />
-                </div>
-            </div>
+        <!-- Button to Open Modal -->
+        <div class="flex justify-between mb-4">
+            <button @click="openModal = true"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Upload File
+            </button>
 
             <!-- Search Bar -->
             <div class="relative w-full sm:w-auto">
@@ -76,38 +23,78 @@
             </div>
         </div>
 
-      <div class="overflow-x-auto shadow-md rounded-lg">
-    <table class="min-w-full border-collapse bg-gray-50 text-sm text-left text-gray-700">
-        <thead class="bg-gradient-to-r from-purple-600 to-purple-800 text-white">
-            <tr>
-                <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">Upload date</th>
-                <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">Type</th>
-                <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">Size</th>
-                <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">Author</th>
-            </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-300">
-          @forelse ($documents as $document)
-    <tr>
-        <td>{{ $document->upload_date }}</td>
-        <td>{{ $document->type }}</td>
-        <td>{{ $document->size }}</td>
-        <td>{{ $document->author }}</td>
-    </tr>
-@empty
-    <tr>
-        <td colspan="4">No documents available.</td>
-    </tr>
-@endforelse
+        <!-- Modal for File Upload -->
+        <div x-show="openModal" x-cloak class="fixed inset-0 bg-gray-600 bg-opacity-75 flex justify-center items-center">
+            <div class="bg-white rounded-lg shadow-xl p-6 w-1/3">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold">Upload File</h3>
+                    <button @click="openModal = false" class="text-red-500">
+                        &times;
+                    </button>
+                </div>
 
-        </tbody>
-    </table>
-</div>
+                <form action="{{ route('documents.upload') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="document" class="block text-sm font-medium text-gray-700">Pilih File</label>
+                        <input type="file" name="document" accept=".pdf" required class="mt-1 block w-full" />
+                    </div>
 
-        <!-- Pagination links -->
-        <div class="flex justify-center mt-4">
-            {{ $documents->links() }}
+                    <div class="flex justify-end">
+                        <button type="submit"
+                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            Upload
+                        </button>
+                        <button type="button" @click="openModal = false"
+                            class="ml-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
 
+        <!-- Table for Documents -->
+        <div class="overflow-x-auto shadow-md rounded-lg mt-4">
+            <table class="min-w-full border-collapse bg-gray-50 text-sm text-left text-gray-700">
+                <thead class="bg-gradient-to-r from-purple-600 to-purple-800 text-white">
+                    <tr>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">NAMA FILE</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">Type</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">Size</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">TANGGAL UPLOAD</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">AUTHOR</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-300">
+                    @forelse ($documents as $document)
+                    <tr>
+                        <td class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">
+                            <a href="{{ $document['file_path'] }}" target="_blank"
+                                class="text-blue-500 hover:underline">
+                                {{ $document['original_name'] }}
+                            </a>
+                        </td>
+                        <td class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">PDF</td>
+                        <td class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">{{ $document['size'] }}</td>
+                        <td class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">{{ $document['created_at'] }}</td>
+                        <td class="px-6 py-3 text-xs font-semibold uppercase tracking-wider">{{ $document['author'] }}</td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="4">No documents available.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </section>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('uploadModal', () => ({
+                openModal: false,
+            }))
+        })
+    </script>
 </x-app-layout>
