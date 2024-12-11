@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     use HasFactory;
-
+    protected $table = 'documents'; // Nama tabel
+    protected $primaryKey = 'id'; // Primary key tabel
+    public $timestamps = true; // Jika tabel memiliki kolom created_at dan updated_at
     protected $fillable = [
         'original_name',
         'file_path',
