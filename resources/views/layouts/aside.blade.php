@@ -21,7 +21,6 @@
           <div>
             <p class="text-gray-400 text-xs uppercase font-bold pl-4">Fitur Utama</p>
             <ul class="space-y-2 mt-2">
-<<<<<<< HEAD
                 <li>
                     <x-nav-link :href="route('dashboard')" :dashboard-active="request()->routeIs('dashboard')">
                         <i class="fas fa-home mr-3" aria-hidden="true"></i><span>{{__('Dashboard')}}</span></a>
@@ -33,16 +32,7 @@
                     </x-nav-link>
                 </li>
                 <li>
-=======
-              <li>
-                <x-nav-link :href="route('dashboard')" :dashboard-active="request()->routeIs('dashboard')" >
-                  <i class="fas fa-home mr-3" aria-hidden="true"></i
-                  ><span>{{__('Dashboard')}}</span></a>
-                </x-nav-link> 
-              </li>
-             
-               <li>
->>>>>>> 36af8e67efc88b6173013fcdd09e0581a9171bb5
+
                     <x-nav-link :href="route('documents.Split')" :dashboard-active="request()->routeIs('Split')">
                         <i class="fas fa-split mr-3" aria-hidden="true"></i><span>{{__('Split Dokumen ')}}</span></a>
                     </x-nav-link>
@@ -77,7 +67,6 @@
                 
               </li>
             </ul>
-<<<<<<< HEAD
         </div>
         <div>
             <x-nav-link :href="route('help')" :dashboard-active="request()->routeIs('help')">
@@ -86,12 +75,4 @@
         </li>
     </nav>
 </aside>
-=======
-          </div>
-          <button class="flex items-center px-4 py-2 rounded-md hover:bg-gray-700">
-            <i class="fa-solid fa-square-question mr-3" aria-current="true"></i>
-            <span>{{__('Help')}}</span></a>
-          </button>
-        </nav>
-      </aside>
->>>>>>> 36af8e67efc88b6173013fcdd09e0581a9171bb5
+
