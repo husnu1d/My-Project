@@ -8,14 +8,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/dashboard', function () {return view('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/help', function () {return view('documents.help');
+
+Route::get('/help', function () {
+    return view('documents.help');
 })->middleware(['auth', 'verified'])->name('help');
-Route::get('/File', function () {return view('documents.File');
+
+Route::get('/File', function () {
+    return view('documents.File');
 })->middleware(['auth', 'verified'])->name('File');
-Route::get('/Split', function () {return view('documents.index');
+
+Route::get('/Split', function () {
+    return view('documents.index');
+})->middleware(['auth', 'verified'])->name('Split');
+
 Route::get('/Convert', function () {
     return view('converts.index');
 })->middleware(['auth', 'verified'])->name('Convert');
@@ -27,6 +35,7 @@ Route::get('/MyProfile', function () {
 Route::get('/Settings', function () {
     return view('Settingse');
 })->middleware(['auth', 'verified'])->name('Settingse');
+
 
 // Authenticated routes
 Route::middleware('auth')->group(function () {
