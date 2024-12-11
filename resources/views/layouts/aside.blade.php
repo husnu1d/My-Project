@@ -27,7 +27,7 @@
                     </x-nav-link>
                 </li>
                 <li>
-                    <x-nav-link :href="route('File')" :dashboard-active="request()->routeIs('File')">
+                    <x-nav-link :href="route('document.File')" :dashboard-active="request()->routeIs('File')">
                         <i class="fas fa-file mr-3" aria-hidden="true"></i><span>{{__('File ')}}</span></a>
                     </x-nav-link>
                 </li>
@@ -35,11 +35,6 @@
 
                     <x-nav-link :href="route('documents.Split')" :dashboard-active="request()->routeIs('Split')">
                         <i class="fas fa-split mr-3" aria-hidden="true"></i><span>{{__('Split Dokumen ')}}</span></a>
-                    </x-nav-link>
-                </li>
-               <li>
-                    <x-nav-link :href="route('documents')" :dashboard-active="request()->routeIs('File')">
-                        <i class="fas fa-file mr-3" aria-hidden="true"></i><span>{{__('File Dokumen')}}</span></a>
                     </x-nav-link>
                 </li>
              
