@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Document;
 use Illuminate\Support\Facades\File;
 
-
 class DocumentController extends Controller
 {
     /**
@@ -15,119 +14,137 @@ class DocumentController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index(){
-        $documents = Document::paginate(10); // Menggunakan paginate untuk mendapatkan data yang dipaginasi
-        return view('documents.index', compact('documents'));
+
+public function index()
+{
+    // Tentukan path folder documents
+    $filePath = storage_path('app/public/documents');
+    
+    // Pastikan folder documents ada
+    if (!file_exists($filePath)) {
+        return back()->withErrors(['error' => 'Folder documents tidak ditemukan.']);
     }
 
-    public function Split()
+    // Ambil semua file dalam folder documents
+    $files = File::files($filePath);
+
+    // Ambil data file dan simpan ke array untuk dikirim ke view
+    $documents = [];
+    foreach ($files as $file) {
+        $documents[] = [
+            'original_name' => basename($file),
+            'file_path' => asset('storage/documents/' . basename($file)),
+            'created_at' => date('d-m-Y H:i:s', filemtime($file)),
+            'size' => number_format(filesize($file) / 1024, 2) . ' KB', // Ukuran file dalam KB
+            'author' => 'ADMIN', // Ganti dengan data pengarang jika tersedia
+            'type' => $file->getExtension(),
+        ];
+    }
+
+    // Kirim semua dokumen ke view tanpa paginasi
+    return view('documents.index', compact('documents'));
+}
+
+public function dashboard()
 {
-    // Ambil semua folder di dalam storage/split
-    $splitPath = storage_path('app/public/Split'); // Path direktori Split
-    $folders = [];
+    // Define the path to the Split folder
+    $splitPath = storage_path('app/public/Split'); 
 
-    // Pastikan direktori Split ada
+    // Initialize an array to hold the folder data
+    $foldersData = [];
+    $uploadDate = ''; // Initialize the variable for upload date
+
+    // Check if the Split folder exists
     if (File::exists($splitPath)) {
-        // Ambil semua sub-direktori di dalam folder Split
-        $directories = File::directories($splitPath);
+        // Get all subdirectories inside the Split directory (which are the upload date folders)
+        $dateFolders = File::directories($splitPath);
 
-        foreach ($directories as $directory) {
-            // Ambil nama folder
-            $folderName = basename($directory);
-            
-            // Ambil file dalam folder
-            $files = File::files($directory);
-            $fileNames = [];
-            
-            // Ambil nama file untuk setiap file dalam folder
-            foreach ($files as $file) {
-                $fileNames[] = $file->getFilename();
+        // Iterate through the date folders
+        foreach ($dateFolders as $dateFolder) {
+            // Get the name of the date folder (which is the upload date)
+            $uploadDate = basename($dateFolder); // Set the upload date dynamically
+
+            // Get all subdirectories inside the date folder (which are the actual folders inside the upload date folder)
+            $subFolders = File::directories($dateFolder);
+
+            // Iterate through the subfolders and gather the folder data
+            foreach ($subFolders as $subFolder) {
+                $subFolderName = basename($subFolder);
+                
+                // Add the folder name to the foldersData array
+                $foldersData[] = [
+                    'folder_name' => $subFolderName, // Folder name (without date)
+                    'folder_path' => 'storage/Split/' . basename($uploadDate) . '/' . $subFolderName,
+                    'file_count' => count(File::files($subFolder)), // Number of files in the folder
+                    'upload_date' => $uploadDate, // Pass the upload date for the link
+                ];
             }
-            
-            // Menyimpan nama folder dan file terkait
-            $folders[$folderName] = $fileNames;
         }
     }
 
-    // Kirim data folder dan file ke tampilan
-    return view('documents.split_folders', compact('folders'));
+    // Return the view with the folders data
+    return view('dashboard', compact('foldersData'));
 }
 
 
-    public function show($id)
+    public function Split()
     {
-        // Ambil document berdasarkan ID
-        $document = Document::findOrFail($id);
-        
-        // Ambil path folder berdasarkan unmerged_file_path
-        $splitPath = storage_path('app/public/Split/' . $document->original_name); // Contoh, sesuaikan dengan logika penyimpanan Anda
-        $files = [];
+        // Ambil semua folder di dalam storage/split
+        $splitPath = storage_path('app/public/Split'); // Path direktori Split
+        $folders = [];
 
-        // Pastikan folder ada
+        // Pastikan direktori Split ada
         if (File::exists($splitPath)) {
-            // Ambil semua file dalam folder
-            $files = File::files($splitPath);
+            // Ambil semua sub-direktori di dalam folder Split
+            $directories = File::directories($splitPath);
+
+            foreach ($directories as $directory) {
+                // Ambil nama folder
+                $folderName = basename($directory);
+                
+                // Ambil file dalam folder
+                $files = File::files($directory);
+                $fileNames = [];
+                
+                // Ambil nama file untuk setiap file dalam folder
+                foreach ($files as $file) {
+                    $fileNames[] = $file->getFilename();
+                }
+                
+                // Menyimpan nama folder dan file terkait
+                $folders[$folderName] = $fileNames;
+            }
         }
 
-        // Kirim data ke tampilan
-        return view('documents.show', compact('document', 'files'));
+        // Kirim data folder dan file ke tampilan, pastikan folderName juga disertakan
+        return view('documents.split_folders', compact('folders'));
     }
 
 
 
-//    public function Split()
-//     {
-//         // Fetch documents that have been split, with pagination
-//         $documents = Document::whereNotNull('unmerged_file_path')->paginate(10);
 
-//         // Array to hold folders and files
-//         $folders = [];
-
-//         if ($documents->isEmpty()) {
-//             Log::info('No documents found.');
-//         } else {
-//             Log::info('Number of documents found: ' . $documents->count());
-//         }
-
-//         foreach ($documents as $document) {
-//             // Split the paths from the 'unmerged_file_path' column
-//             $paths = explode(',', $document->unmerged_file_path);
-
-//             foreach ($paths as $path) {
-//                 // Validate the path
-//                 if (!empty($path)) {
-//                     // Extract folder and file from the path
-//                     $folderName = basename(dirname($path)); // Folder name
-//                     $fileName = basename($path); // File name
-//                     $folders[$folderName][] = $fileName;
-//                 }
-//             }
-//         }
-
-//         return view('documents.split_folders', compact('folders'));
-//     }
-
-
-
-    // protected function getSplitFolderContents($folderPath){
-    //     $folders = [];
+public function show($uploadDate, $folderName)
+{
+    // Check if we're viewing the root (date) folder or a subfolder
+    if ($folderName == 'root') {
+        $folderPath = storage_path('app/public/Split/' . $uploadDate);
+        $folders = File::directories($folderPath); // Get all subfolders inside the date folder
+        return view('documents.show', compact('folders', 'uploadDate', 'folderName'));
+    } else {
+        // If it's a subfolder inside the date folder
+        $folderPath = storage_path('app/public/Split/' . $uploadDate . '/' . $folderName);
         
-    //     // Pastikan folder ada
-    //     if (file_exists($folderPath)) {
-    //         $directories = array_filter(glob($folderPath . '/*'), 'is_dir');
-            
-    //         // Ambil daftar file di setiap folder
-    //         foreach ($directories as $directory) {
-    //             $files = glob($directory . '/*.pdf');
-    //             $folders[] = [
-    //                 'folder' => basename($directory),
-    //                 'files' => $files,
-    //             ];
-    //         }
-    //     }
+        if (File::isDirectory($folderPath)) {
+            $subFolders = File::directories($folderPath); // Get subfolders inside the subfolder
+            $files = File::files($folderPath); // Get files inside the subfolder
+        } else {
+            // Handle case where folder is not found
+            return back()->withErrors(['error' => 'Folder not found.']);
+        }
 
-    //     return $folders;
-    // }
+        return view('documents.show', compact('subFolders', 'files', 'uploadDate', 'folderName'));
+    }
+}
 
     /**
      * Handle file upload and processing.
@@ -246,8 +263,4 @@ protected function splitPdfUsingFPDI($filePath, $splitFolderPath)
         throw new \Exception('Terjadi kesalahan saat memproses file PDF: ' . $e->getMessage());
     }
 }
-
-
-
-
 }
