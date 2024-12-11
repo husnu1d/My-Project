@@ -1,7 +1,7 @@
 <x-app-layout>
     <section class=" mt-10 rounded-lg shadow px-8 py-8 bg-white">
               <div class="flex  justify-between items-center gap-4 mb-8" >
-                <label class=" p-2 md:px-4 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-300 flex gap-4 items-center cursor-pointer">
+                <label  class=" p-2 md:px-4 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-300 flex gap-4 items-center cursor-pointer">
                     <i class="fa-sharp fa-solid fa-plus"></i>
                     <span>Tambah Berkas</span>
                     <input id="fileInput" type="file" name="file" class="hidden" accept=".pdf" @change="showModal = true" />
@@ -67,5 +67,6 @@
                 </table>
               
               </div>
+             
     </section>
 </x-app-layout>

@@ -91,7 +91,9 @@
             </nav>
             {{$slot}}
           </main>
+          
         </div>
+
         
     </div>
     
