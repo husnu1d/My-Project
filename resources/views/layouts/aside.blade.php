@@ -17,8 +17,8 @@
                     </x-nav-link>
                 </li>
                 <li>
-                    <x-nav-link :href="route('SP2D')" :dashboard-active="request()->routeIs('SP2D')">
-                        <i class="fas fa-file mr-3" aria-hidden="true"></i><span>{{__('File SP2D')}}</span></a>
+                    <x-nav-link :href="route('File')" :dashboard-active="request()->routeIs('File')">
+                        <i class="fas fa-file mr-3" aria-hidden="true"></i><span>{{__('File ')}}</span></a>
                     </x-nav-link>
                 </li>
                 <li>
@@ -51,5 +51,10 @@
                 </li>
             </ul>
         </div>
+        <div>
+            <x-nav-link :href="route('help')" :dashboard-active="request()->routeIs('help')">
+                <i class="fas fa-solid fa-square-question mr-3" aria-hidden="true"></i><span>{{__('Bantuan ')}}</span></a>
+            </x-nav-link>
+        </li>
     </nav>
 </aside>

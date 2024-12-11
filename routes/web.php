@@ -11,8 +11,10 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/SP2D', function () {return view('SP2D');
-})->middleware(['auth', 'verified'])->name('SP2D');
+Route::get('/help', function () {return view('documents.help');
+})->middleware(['auth', 'verified'])->name('help');
+Route::get('/File', function () {return view('documents.File');
+})->middleware(['auth', 'verified'])->name('File');
 Route::get('/Split', function () {return view('documents.index');
 })->middleware(['auth', 'verified'])->name('Split');
 Route::get('/Convert', function () {return view('converts.index');
