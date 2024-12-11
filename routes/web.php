@@ -17,7 +17,7 @@ Route::get('/help', function () {
 })->middleware(['auth', 'verified'])->name('help');
 
 Route::get('/File', function () {
-    return view('documents.File');
+    return view('documents.file');
 })->middleware(['auth', 'verified'])->name('File');
 
 Route::get('/Split', function () {

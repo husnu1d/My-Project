@@ -27,7 +27,7 @@
                     </x-nav-link>
                 </li>
                 <li>
-                    <x-nav-link :href="route('document.File')" :dashboard-active="request()->routeIs('File')">
+                    <x-nav-link :href="route('File')" :dashboard-active="request()->routeIs('File')">
                         <i class="fas fa-file mr-3" aria-hidden="true"></i><span>{{__('File ')}}</span></a>
                     </x-nav-link>
                 </li>
