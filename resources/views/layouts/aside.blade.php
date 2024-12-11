@@ -52,19 +52,16 @@
                   ><span>{{__('My profile')}}</span></a
                 ></x-nav-link>
               </li>
-             
               <li>
-                <x-nav-link :href="route('Settings')" :dashboard-active="request()->routeIs('Settings')" >
-                  <i class="fa-sharp fa-solid fa-gear mr-3"></i>
-                  <span>{{__('Settings')}}</span></a>
-                </x-nav-link> 
-              </li>
-              
-              <li>
-                <button class="flex items-center px-4 py-2 rounded-md hover:bg-gray-700">
-                  <i class="fa-solid fa-right-from-bracket mr-3" aria-current="true"></i>
-                  <span>{{__('Sign out')}}</span></a>
-                </button>
+                <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+                <x-nav-link :href="route('logout')"
+                onclick="event.preventDefault();
+                            this.closest('form').submit();">
+            {{ __('Log Out') }}
+        </x-nav-link>
+                </form>
+                
               </li>
             </ul>
           </div>
